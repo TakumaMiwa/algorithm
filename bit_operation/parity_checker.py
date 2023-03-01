@@ -20,5 +20,5 @@ for _ in range(100):
         print("CORRECT!")
     else:
         print("INCORRECT...")
-        print("prity: ", parity)
+        print("parity: ", parity)
         break
