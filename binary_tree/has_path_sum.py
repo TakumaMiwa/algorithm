@@ -1,25 +1,14 @@
-from collections import deque
-
-
-class BinaryTreeNode:
-    def __init__(self, data=None, left=None, right=None):
-        self.data = data
-        self.left = left
-        self.right = right
-
-def depth_order(root):
-    same_depth_node = [root]
-    result = []
-    while same_depth_node:
-        same_depth_value = []
-        next_depth = []
-        for node in same_depth_node:
-            same_depth_value.append(node.data)
-            if node.left: next_depth.append(node.left)
-            if node.right: next_depth.append(node.right)
-        result.append(same_depth_value)
-        same_depth_node = next_depth
-    return result
+from binarytree import BinaryTreeNode
+def has_path_sum(root, key):
+    def dfs(node, weight):
+        if not node: return None
+        weight += node.data
+        if weight==key: return node
+        elif weight > key: return None
+        else:
+            return dfs(node.left, weight) or dfs(node.right, weight)
+        
+    return dfs(root, 0)
 
 ## test
 n1 = BinaryTreeNode(data=314)
@@ -50,4 +39,4 @@ n10.left = n13
 n11.left, n11.right = n14, n15
 n14.right = n16
 
-print(depth_order(n1))
+print(has_path_sum(n1, 591).data)

@@ -1,25 +1,16 @@
-from collections import deque
-
-
-class BinaryTreeNode:
-    def __init__(self, data=None, left=None, right=None):
-        self.data = data
-        self.left = left
-        self.right = right
-
-def depth_order(root):
-    same_depth_node = [root]
+def preorder_traversal(root):
+    stack = [root]
     result = []
-    while same_depth_node:
-        same_depth_value = []
-        next_depth = []
-        for node in same_depth_node:
-            same_depth_value.append(node.data)
-            if node.left: next_depth.append(node.left)
-            if node.right: next_depth.append(node.right)
-        result.append(same_depth_value)
-        same_depth_node = next_depth
+    while stack:
+        node = stack.pop()
+        if not node: continue
+        
+        result.append(node)
+        stack.append(node.right)
+        stack.append(node.left)
     return result
+
+from binarytree import BinaryTreeNode
 
 ## test
 n1 = BinaryTreeNode(data=314)
@@ -50,4 +41,4 @@ n10.left = n13
 n11.left, n11.right = n14, n15
 n14.right = n16
 
-print(depth_order(n1))
+print([x.data for x in preorder_traversal(n1)])
